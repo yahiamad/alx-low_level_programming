@@ -1,25 +1,51 @@
+#include "holberton.h"
 #include <stdio.h>
 #include <stdlib.h>
-
+#include <string.h>
 /**
- * main - it all starts here
- * @argc: the number of arguments
- * @argv: array of pointers to arguments
- *
- * Renturn: Always 0.
+ * main - main function
+ * @argc: argumentc
+ * @argv: vector of arguments
+ *Return: always 0
  */
-int main(int argc, char *argv[])
+int main(int argc, char  *argv[])
 {
-	int sum = 0;
-	char *c;
+	int coins = 0;
 
-	while (--argc)
+	if (argc == 2)
 	{
-		for (c = argv[argc]; *c; c++)
-			if (*c < '0' || *c >'9')
-				return (printf("Error\n"), 1);
-		sum += atoi(argv[argc]);
+		if (strchr(argv[argc - 1], '-'))
+		{
+			printf("0\n");
+			return (1);
+		}
+		int money;
+
+		money = atoi(argv[argc - 1]);
+
+		while (money > 0)
+		{
+			if (money % 25 == 0)
+			{
+				money -= 25;
+			} else if (money % 10 == 0)
+			{
+				money -= 10;
+			} else if (money % 5 == 0)
+			{
+				money -= 5;
+			} else if (money % 2 == 0)
+			{
+				money -= 2;
+			} else
+			{
+				money--;
+			}
+			coins++;
+		}
+		printf("%d\n", coins);
+		return (0);
 	}
-	printf("%d\n", sum);
-	return (0);
+	printf("Error\n");
+	return (1);
 }
