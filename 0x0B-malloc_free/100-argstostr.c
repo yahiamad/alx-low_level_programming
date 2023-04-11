@@ -1,83 +1,48 @@
 #include <main.h>
 /**
- * helper - helps function
- * @word: wordcount
- * @len: length
- * @str: string to go through
- * @s: array you are assigning
- * Return: char value
+ * _strlen - find length of a string
+ * @s: string
+ * Return: int
  */
-char **helper(int word, int len, char *str, char **s)
-{
-	int i, k, j;
 
-	j = 0;
-	for (i = 0; i < word; i++)
-	{
-		k = 0;
-		for (; j < len; j++)
-		{
-			if (str[0] != ' ' || str[j] != ' ')
-			{
-				s[i][k] = str[j];
-				k++;
-			}
-			if (j != 0 && str[j] == ' ' && str[j - 1] != ' ')
-			{
-				j++;
-				break;
-			}
-		}
-		s[i][k + 1] = '\0';
-	}
-	s[word + 1] = NULL;
-	return (s);
+int _strlen(char *s)
+{
+	int size = 0;
+
+	for (; s[size] != '\0'; size++)
+	;
+	return (size);
 }
-/**
- * strtow - string to words
- * @str: string to check
- * Return: return char value
+/*
+ * *argstostr - description
+ * @ac: int
+ * @av: arguments
+ * Return: string
  */
-char **strtow(char *str)
-{
-	int len, i, j, size, k, word;
-	char **s;
 
-	if (str == NULL)
+char *argstostr(int ac, char **av)
+{
+	int i = 0, nc = 0, j = 0, cmpt = 0;
+	char *s;
+
+	if (ac == 0 || av == NULL)
 		return (NULL);
-	len = 0;
-	word = 0;
-	while (str[len] != '\0')
+
+	for (; i < ac; i++, nc++)
+		nc += _strlen(av[i]);
+
+	 s = mall0c(sizeof(char) * nc + 1);
+	 if (s == 0)
+		 return (NULL);
+
+	 for (i = 0; i < ac; i++)
 	{
-		if (str[0] != ' ')
-		word++;
-		if (str[len] != ' ' && str[len - 1] == ' ' && len != 0)
-			word++;
-		len++;
+		for (j = 0; ac[i][j] != '\0'; j++, cmpt++)
+			s[cmpt] = ac[i][j];
+		s[cmpt] = '\n';
+		cmpt++;
 	}
-	s = (char **)malloc(sizeof(char *) * word + 1);
-	if (s == NULL)
-		return (NULL);
-	j = 0;
-	for (i = 0; i < word; i++)
-	{
-		size = 0;
-		for (; j < len; j++)
-		{
-			if (str[0] != ' ' || str[j] != ' ')
-				size++;
-			if (str[j] == ' ' && size > 0)
-				break;
-		}
-		printf("%d\n", size);
-		s[i] = (char *)malloc(sizeof(char) * size + 1);
-		if (s[i] == NULL)
-		{
-			for (k = i - 1; k >= 0; k--)
-				free(s[k]);
-			free(s);
-		}
-	}
-	s = helper(word, len, str, s);
+	s[cmpt] = '\0';
 	return (s);
+
 }
