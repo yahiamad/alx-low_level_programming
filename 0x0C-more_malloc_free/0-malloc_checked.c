@@ -1,18 +1,13 @@
 #include <unistd.h>
 
 /**
- * malloc_checked - checks malloc
- * @b: integer to check?
- * Return: a pointer or void
+ * _putchar - writes the character c to stdout
+ * @c: The character to print
+ *
+ * Return: On success 1.
+ * On error, -1 is returned, and errno is set appropriately.
  */
-void *malloc_checked(unsigned int b)
+int _putchar(char c)
 {
-
-	void *t;
-
-	t = malloc(b);
-	if (t == NULL)
-		exit(98);
-
-	return (t);
+	return (write(1, &c, 1));
 }
